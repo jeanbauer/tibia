@@ -1,0 +1,58 @@
+.App {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.column {
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.floor {
+  background-image: url("./images/tiles/dirt.gif");
+  padding: 100px 0 100px 100px;
+  width: 75vw;
+  height: calc(100vh - 200px);
+}
+
+.monster {
+  cursor: pointer;
+}
+
+.monster__hp {
+  color: #FFF;
+}
+
+.character {
+
+}
+
+.sidebar {
+  width: 25vw;
+  background: #464846;
+  height: 100vh;
+}
+
+.equipment {
+
+}
+
+.battle {
+
+}
