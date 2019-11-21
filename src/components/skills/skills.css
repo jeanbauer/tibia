@@ -1,0 +1,24 @@
+/* SKILLS */
+.skills {
+
+}
+
+.skills__line {
+  justify-content: space-between;
+}
+
+.skills__line p {
+  margin: 0;
+  font-weight: bold;
+  color: #adaead;
+}
+
+.skills__bar {
+  border: 1px solid #000;
+  margin-top: 2px;
+}
+
+.skills__bar__progress {
+  background-color: red;
+  height: 2px;
+}
