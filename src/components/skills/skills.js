@@ -5,11 +5,8 @@ import "./skills.css";
 import skills from "../../images/skills.svg";
 
 function Skills(props) {
-  const getXpProgress = () => {
-    // do some complex calc
-    return {
-      width: "30%"
-    };
+  const xpProgress = {
+    width: `${props.xp.toString().slice(props.xp.toString().length - 2)}%`
   };
 
   return (
@@ -17,16 +14,16 @@ function Skills(props) {
       <div className="flex start column">
         <div className="skills__line flex">
           <p>Experience</p>
-          <p>{props.xp || 0}</p>
+          <p>{props.xp}</p>
         </div>
 
         <div className="skills__line flex">
           <p>Level</p>
-          <p>{props.level || 0}</p>
+          <p>{props.level}</p>
         </div>
 
         <div className="skills__bar">
-          <div style={getXpProgress()} className="skills__bar__progress"></div>
+          <div style={xpProgress} className="skills__bar__progress"></div>
         </div>
       </div>
     </Item>
