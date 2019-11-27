@@ -7,11 +7,7 @@ import gold from "./coins/gold";
 import "./backpack.css";
 
 function Backpack(props) {
-  const amountOfGold = 200;
-  const space = new Array(16);
-  space.fill(1);
-
-  const getCoinImage = () => gold(amountOfGold);
+  const getCoinImage = () => gold(props.gold);
 
   return (
     <Item name="Backpack" icon={backpack}>
@@ -20,9 +16,6 @@ function Backpack(props) {
           <img src={getCoinImage()} alt="" />
           <span>{props.gold}</span>
         </div>
-        {space.map(s => (
-          <div key={s} className="flex center backpack__slot"></div>
-        ))}
       </div>
     </Item>
   );
