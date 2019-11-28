@@ -27,7 +27,7 @@
 .floor {
   background-image: url("./images/tiles/dirt.gif");
   padding: 100px 0 100px 100px;
-  width: 75vw;
+  width: 80vw;
   height: calc(100vh - 200px);
 }
 
@@ -39,22 +39,10 @@
   color: #FFF;
 }
 
-.character {
-
-}
-
 .sidebar {
-  width: 25vw;
+  width: 20vw;
   background: #464846;
   height: 100vh;
-}
-
-.equipment {
-
-}
-
-.battle {
-
 }
 
 .battle span {

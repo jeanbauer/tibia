@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Character from "./components/character";
+import Character from "./components/character/character";
 import Backpack from "./components/backpack/backpack";
-import Monster from "./components/monster";
+import Monster from "./components/monster/monster";
 import Skills from "./components/skills/skills";
-import Battle from "./components/battle";
-import Equipment from "./components/equipment";
+import Battle from "./components/monster/battle";
+import Equipment from "./components/equipment/equipment";
 
 import useInterval from "./hooks/setInterval";
 import map from "./images/map.png";
@@ -16,7 +16,7 @@ function Sidebar(props) {
 
 function App() {
   const [gold, setGold] = useState(1);
-  const [idleGold, setIdleGold] = useState(0);
+  const [idleGold, setIdleGold] = useState(1);
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
   const [hp, setHP] = useState(100);
   const [characterDamage, setCharacterDamage] = useState(20);
@@ -37,6 +37,7 @@ function App() {
     const lastXPdigits = newXp.toString().slice(newXp.toString().length - 2);
 
     // Everytime the xp ends with 00 means that user leveled up
+    // could be improved. :P
     if (lastXPdigits === "00") {
       setCharacterDamage(characterDamage + level);
       return level + 1;
@@ -60,14 +61,14 @@ function App() {
   return (
     <main className="App flex ">
       <div className="floor flex column">
-        <Monster hp={hp} attack={attack} />
+        <Monster hp={hp} attack={attack} level={skills.level} />
         <Character />
       </div>
 
       <Sidebar>
         <img height="190" alt="" src={map} />
         <Equipment />
-        <Battle hp={hp} attack={attack} />
+        <Battle hp={hp} attack={attack} level={skills.level} />
         <Skills xp={skills.xp} level={skills.level} />
         <Backpack gold={gold} />
       </Sidebar>

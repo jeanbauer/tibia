@@ -1,5 +1,5 @@
 import React from "react";
-import character from "../images/outfits/hardcore_back.png";
+import character from "../../images/outfits/hardcore_back.png";
 
 function Character() {
   return (
