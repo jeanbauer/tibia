@@ -1,12 +1,9 @@
-.backpack__slot {
+.backpack__slot, .equipment__slot {
   background-color: #2b2625;
   width: 32px;
   height: 32px;
   position: relative;
   margin: 2px;
-}
-
-.backpack__slot img {
 }
 
 .backpack__slot span {

@@ -1,7 +1,7 @@
 import React from "react";
-import Item from "./item/item";
-import rat from "../images/monsters/rat.gif";
-import battle from "../images/battle.svg";
+import Item from "../item/item";
+import getMonster from "./monsters";
+import battle from "../../images/battle.svg";
 
 const hpStyle = hp => {
   let color = "green";
@@ -13,7 +13,9 @@ const hpStyle = hp => {
   };
 };
 
-function Battle({ attack, hp }) {
+function Battle({ attack, hp, level }) {
+  const { name, img } = getMonster(level);
+
   return (
     <Item name="Battle" icon={battle}>
       <div className="battle flex start">
@@ -22,8 +24,8 @@ function Battle({ attack, hp }) {
           onClick={attack}
           className="monster battle__monster"
         >
-          <img src={rat} />
-          <span>Rat</span>
+          <img src={img} alt={name} />
+          <span>{name}</span>
         </div>
       </div>
     </Item>
