@@ -1,34 +1,59 @@
 import React from "react";
 import "./equipment.css";
 import boh from "../../images/items/boh.gif";
-import crown_armor from "../../images/items/crown_armor.gif";
-import crown_legs from "../../images/items/crown_legs.gif";
-import demon_shield from "../../images/items/demon_shield.gif";
-import fire_sword from "../../images/items/fire_sword.gif";
-import steel_helmet from "../../images/items/steel_helmet.gif";
+import empty_armor from "../../images/items/empty_armor.gif";
+import empty_legs from "../../images/items/empty_legs.gif";
+import empty_shield from "../../images/items/empty_shield.gif";
+import empty_sword from "../../images/items/empty_sword.gif";
+import empty_helmet from "../../images/items/empty_helmet.gif";
+import empty_necklace from "../../images/items/empty_amulet.gif";
+import empty_ring from "../../images/items/empty_ring.gif";
+import empty_ammo from "../../images/items/empty_ammo.gif";
+import empty_boots from "../../images/items/empty_boots.gif";
+import backpack from "../../images/coin/backpack.gif";
 
 function Equipment() {
   return (
-    <div className="equipment flex center column">
-      <div className="equipment__slot equipment__helmet">
-        <img src={steel_helmet} alt="helmet" />
-      </div>
-      <div className="flex center">
-        <div className="equipment__slot equipment__left-hand">
-          <img src={fire_sword} alt="left-hand" />
+    <div className="equipment background flex center">
+      <div className="flex column center">
+        <div className="equipment__slot">
+          <img src={empty_necklace} alt="necklace" />
         </div>
-        <div className="equipment__slot equipment__armos">
-          <img src={crown_armor} alt="armos" />
+        <div className="equipment__slot-hand">
+          <img src={empty_sword} alt="left-hand" />
         </div>
-        <div className="equipment__slot equipment__shield">
-          <img src={demon_shield} alt="shield" />
+        <div className="equipment__slot">
+          <img src={empty_ring} alt="ring" />
         </div>
       </div>
-      <div className="equipment__slot equipment__legs">
-        <img src={crown_legs} alt="legs" />
+
+      <div className="flex column center">
+        <div className="equipment__slot">
+          <img src={empty_helmet} alt="helmet" />
+        </div>
+        <div className="equipment__slot">
+          <img src={empty_armor} alt="armos" />
+        </div>
+
+        <div className="equipment__slot">
+          <img src={empty_legs} alt="legs" />
+        </div>
+        <div className="equipment__slot">
+          <img src={empty_boots} alt="boots" />
+        </div>
       </div>
-      <div className="equipment__slot equipment__boots">
-        <img src={boh} alt="boots" />
+
+      <div className="flex column center">
+        <div className="equipment__slot">
+          <img src={backpack} alt="backpack" />
+        </div>
+
+        <div className="equipment__slot">
+          <img src={empty_shield} alt="shield" />
+        </div>
+        <div className="equipment__slot">
+          <img src={empty_ammo} alt="ammo" />
+        </div>
       </div>
     </div>
   );

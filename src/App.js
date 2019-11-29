@@ -11,7 +11,7 @@ import map from "./images/map.png";
 import "./App.css";
 
 function Sidebar(props) {
-  return <div className="sidebar flex column">{props.children}</div>;
+  return <div className="sidebar background flex column">{props.children}</div>;
 }
 
 function App() {

@@ -4,6 +4,10 @@
   height: 32px;
   position: relative;
   margin: 2px;
+
+  border: 1px solid #808080;
+  border-top-color: black;
+  border-left-color: black;
 }
 
 .backpack__slot span {
