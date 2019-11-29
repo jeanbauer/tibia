@@ -1,5 +1,5 @@
-.App {
-  position: relative;
+.background {
+  background-image: url("./images/items/background.gif");
 }
 
 .flex {
@@ -41,7 +41,6 @@
 
 .sidebar {
   width: 20vw;
-  background: #464846;
   height: 100vh;
 }
 

@@ -9,7 +9,7 @@ function Item(props) {
           <img width="14" src={props.icon} alt={props.icon} />
           <span>{props.name}</span>
         </div>
-        <div className="item__content">{props.children}</div>
+        <div className="item__content background">{props.children}</div>
       </div>
     </div>
   );
