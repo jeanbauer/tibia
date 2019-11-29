@@ -7,6 +7,7 @@ import Battle from "./components/monster/battle";
 import Equipment from "./components/equipment/equipment";
 import StatusBar from "./components/statusbar/statusbar";
 import Map from "./components/map/map";
+import Store from "./components/store/store";
 
 import useInterval from "./hooks/setInterval";
 
@@ -68,7 +69,8 @@ function App() {
       </div>
 
       <Sidebar>
-        <Map />
+        {/* <Map /> */}
+        <Store />
         <Equipment />
         <StatusBar />
         <Battle hp={hp} attack={attack} level={skills.level} />

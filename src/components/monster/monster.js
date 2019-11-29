@@ -17,7 +17,7 @@ function Monster({ attack, hp, level }) {
     <div className="flex center">
       <div onClick={attack} className="pointer">
         <div className="monster__hp" style={hpStyle(hp)}>
-          HP: {hp}
+          {name}: {hp}
         </div>
         <img src={img} alt={name} />
       </div>

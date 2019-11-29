@@ -1,0 +1,32 @@
+.store {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+
+  margin: 5px;
+  background-image: url("../../images/tiles/grass.gif");
+  padding: 0 40px 40px 0;
+}
+
+.store__seller {
+  align-items: center;
+}
+
+.store__seller p, .character p {
+  color: #FFF;
+  text-align: center;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  margin-bottom: 5px;
+}
+
+/* to centralize the img with the seller's name */
+.store__character, .character img {
+  margin-top: -60px;
+  margin-right: 60px;
+}
+
+.store__chest {
+  margin: 10px 0 0 40px;
+  width: 57px;
+  height: 52px;
+}

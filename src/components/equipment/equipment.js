@@ -1,6 +1,5 @@
 import React from "react";
 import "./equipment.css";
-import boh from "../../images/items/boh.gif";
 import empty_armor from "../../images/items/empty_armor.gif";
 import empty_legs from "../../images/items/empty_legs.gif";
 import empty_shield from "../../images/items/empty_shield.gif";
