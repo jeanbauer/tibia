@@ -5,9 +5,11 @@ import Monster from "./components/monster/monster";
 import Skills from "./components/skills/skills";
 import Battle from "./components/monster/battle";
 import Equipment from "./components/equipment/equipment";
+import StatusBar from "./components/statusbar/statusbar";
+import Map from "./components/map/map";
 
 import useInterval from "./hooks/setInterval";
-import map from "./images/map.png";
+
 import "./App.css";
 
 function Sidebar(props) {
@@ -66,8 +68,9 @@ function App() {
       </div>
 
       <Sidebar>
-        <img height="190" alt="" src={map} />
+        <Map />
         <Equipment />
+        <StatusBar />
         <Battle hp={hp} attack={attack} level={skills.level} />
         <Skills xp={skills.xp} level={skills.level} />
         <Backpack gold={gold} />
