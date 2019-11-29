@@ -15,7 +15,7 @@ function Monster({ attack, hp, level }) {
 
   return (
     <div className="flex center">
-      <div onClick={attack} className="monster">
+      <div onClick={attack} className="pointer">
         <div className="monster__hp" style={hpStyle(hp)}>
           HP: {hp}
         </div>

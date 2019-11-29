@@ -24,15 +24,15 @@
   justify-content: flex-start;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .floor {
   background-image: url("./images/tiles/dirt.gif");
   padding: 100px 0 100px 100px;
   width: 80vw;
   height: calc(100vh - 200px);
-}
-
-.monster {
-  cursor: pointer;
 }
 
 .monster__hp {
@@ -44,6 +44,21 @@
   height: 100vh;
 }
 
+.minimap {
+  width: 20vw;
+}
+
+/* Battle */
+.battle {
+  padding: 1px 0px 4px 0px;
+}
+
 .battle span {
   color: #adaead;
+  font-weight: bold;
+  user-select: none;
+}
+
+.battle__monster {
+  width: 100%;
 }
