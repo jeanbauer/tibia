@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import getMonster from "./monsters";
+import "./monster.css";
 
 const hpStyle = hp => {
   let color = "green";
   if (hp <= 60) color = "yellow";
   if (hp <= 20) color = "red";
   return {
-    borderTop: `3px solid ${color}`
+    borderTop: `3px solid ${color}`,
+    width: `${hp}%`
   };
 };
 
@@ -16,8 +18,9 @@ function Monster({ attack, hp, level }) {
   return (
     <div className="flex center">
       <div onClick={attack} className="pointer">
-        <div className="monster__hp" style={hpStyle(hp)}>
-          {name}: {hp}
+        <p className="text-shadow monster__name">{name}</p>
+        <div className="skills__bar">
+          <div style={hpStyle(hp)}></div>
         </div>
         <img src={img} alt={name} />
       </div>

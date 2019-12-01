@@ -14,7 +14,7 @@ function Backpack(props) {
       <div className="flex wrap">
         <div className="flex center backpack__slot">
           <img src={getCoinImage()} alt="" />
-          <span>{props.gold}</span>
+          <span className="text-shadow">{props.gold}</span>
         </div>
       </div>
     </Item>

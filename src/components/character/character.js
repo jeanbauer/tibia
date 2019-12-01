@@ -4,7 +4,7 @@ import character from "../../images/outfits/hardcore_back.png";
 function Character() {
   return (
     <div className="character flex center column">
-      <p>You</p>
+      <p className="text-shadow">You</p>
       <img src={character} />
     </div>
   );

@@ -22,31 +22,28 @@ function App() {
   const [idleGold, setIdleGold] = useState(1);
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
   const [hp, setHP] = useState(100);
-  const [characterDamage, setCharacterDamage] = useState(20);
+  const [characterDamage, setCharacterDamage] = useState(40);
 
   useInterval(() => {
     setGold(gold + idleGold);
   }, 5000);
 
   const onKillMonster = () => {
+    // it should increase accordingly to the monster, not fixed.
+    const earnedXpFromMonster = 25;
+    const earnedGoldFromMonster = 1;
     const { xp, level } = skills;
-    const newXp = xp + 10;
 
-    setSkills({ xp: newXp, level: newLevel(newXp, level) });
-    setGold(gold + 1);
+    const newXp = xp + earnedXpFromMonster;
+
+    setSkills({ xp: newXp, level });
+    setGold(gold + earnedGoldFromMonster);
   };
 
-  const newLevel = (newXp, level) => {
-    const lastXPdigits = newXp.toString().slice(newXp.toString().length - 2);
-
-    // Everytime the xp ends with 00 means that user leveled up
-    // could be improved. :P
-    if (lastXPdigits === "00") {
-      setCharacterDamage(characterDamage + level);
-      return level + 1;
-    }
-
-    return level;
+  const onLevelUp = () => {
+    const { xp, level } = skills;
+    setCharacterDamage(characterDamage + level);
+    setSkills({ xp, level: level + 1 });
   };
 
   const attack = () => {
@@ -74,7 +71,7 @@ function App() {
         <Equipment />
         <StatusBar />
         <Battle hp={hp} attack={attack} level={skills.level} />
-        <Skills xp={skills.xp} level={skills.level} />
+        <Skills onLevelUp={onLevelUp} xp={skills.xp} level={skills.level} />
         <Backpack gold={gold} />
       </Sidebar>
     </main>
