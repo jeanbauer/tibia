@@ -8,6 +8,7 @@ import Equipment from "./components/equipment/equipment";
 import StatusBar from "./components/statusbar/statusbar";
 import Map from "./components/map/map";
 import Store from "./components/store/store";
+import { defaultItems } from "./images/items";
 
 import useInterval from "./hooks/setInterval";
 
@@ -23,10 +24,19 @@ function App() {
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
   const [hp, setHP] = useState(100);
   const [characterDamage, setCharacterDamage] = useState(40);
+  const [equipments, setEquipments] = useState(defaultItems);
 
   useInterval(() => {
     setGold(gold + idleGold);
   }, 5000);
+
+  const onPurchaseItem = item => {
+    setCharacterDamage(characterDamage + item.attack);
+    setGold(gold - item.price);
+
+    equipments[item.type] = item;
+    setEquipments(equipments);
+  };
 
   const onKillMonster = () => {
     // it should increase accordingly to the monster, not fixed.
@@ -67,8 +77,8 @@ function App() {
 
       <Sidebar>
         {/* <Map /> */}
-        <Store />
-        <Equipment />
+        <Store gold={gold} onPurchaseItem={onPurchaseItem} />
+        <Equipment equipments={equipments} />
         <StatusBar />
         <Battle hp={hp} attack={attack} level={skills.level} />
         <Skills onLevelUp={onLevelUp} xp={skills.xp} level={skills.level} />
