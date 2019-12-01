@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import seller from "../../images/outfits/hardcore.png";
+import seller from "../../images/outfits/murilo_the_seller.png";
 import chest from "./chest.gif";
 import { items } from "../../images/items";
 import Item from "../item/item";
@@ -31,7 +31,12 @@ function Store(props) {
             className="store__seller pointer flex column"
           >
             <p className="text-shadow">Murilo, the Seller</p>
-            <img className="store__character" src={seller} alt="seller" />
+            <img
+              className="store__character"
+              width="100"
+              src={seller}
+              alt="seller"
+            />
             <img className="store__chest" src={chest} alt="chest" />
           </div>
         </div>
