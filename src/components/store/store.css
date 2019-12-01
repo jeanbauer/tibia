@@ -1,7 +1,7 @@
 .store {
   margin: 5px;
   background-image: url("../../images/tiles/grass.gif");
-  padding: 0 40px 40px 0;
+  padding: 0 0 5px 0;
 }
 
 .store__seller {
@@ -27,15 +27,24 @@
 }
 
 .store__items {
-  position: absolute;
-  background: #FFF;
-  padding: 10px;
+  padding: 4px;
   border-radius: 4px;
-  border: 3px solid;
-  right: 250px;
-  top: 20px;
+  overflow: scroll;
+  max-height: 140px;
 }
 
 .store__item {
-  
+  margin-top: 4px;
+  border-bottom: 1px solid #2f3435;
+  padding-bottom: 6px;
+}
+
+.store__item:first-child {
+  margin-top: -2px;
+}
+
+.store__button {
+  background: #2196F3;
+  border: none;
+  color: #FFF;
 }

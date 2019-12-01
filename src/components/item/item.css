@@ -16,6 +16,7 @@
   font-weight: bold;
   background: #303435;
   border-bottom: 1px solid #303435;
+  position: relative;
 }
 
 .item__title span {
@@ -26,4 +27,10 @@
 .item__content {
   background: #494642;
   padding: 3px 6px;
+}
+
+.item__close {
+  position: absolute;
+  right: 5px;
+  top: -1px;
 }
