@@ -6,6 +6,8 @@ import Skills from "./components/skills/skills";
 import Battle from "./components/monster/battle";
 import Equipment from "./components/equipment/equipment";
 import StatusBar from "./components/statusbar/statusbar";
+import Github from "./components/github";
+
 import Map from "./components/map/map";
 import Store from "./components/store/store";
 import { defaultItems } from "./images/items";
@@ -69,8 +71,9 @@ function App() {
   };
 
   return (
-    <main className="App flex ">
+    <main className="App flex">
       <div className="floor flex column">
+        <Github />
         <Monster hp={hp} attack={attack} level={skills.level} />
         <Character />
       </div>
