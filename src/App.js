@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useAlert } from "react-alert";
+
 import Character from "./components/character/character";
 import Backpack from "./components/backpack/backpack";
 import Monster from "./components/monster/monster";
@@ -11,7 +13,6 @@ import Store from "./components/store/store";
 import { defaultItems } from "./images/items";
 
 import useInterval from "./hooks/setInterval";
-
 import "./App.css";
 
 function Sidebar(props) {
@@ -25,6 +26,7 @@ function App() {
   const [hp, setHP] = useState(100);
   const [characterDamage, setCharacterDamage] = useState(40);
   const [equipments, setEquipments] = useState(defaultItems);
+  const alert = useAlert();
 
   useInterval(() => {
     setGold(gold + idleGold);
@@ -48,12 +50,16 @@ function App() {
 
     setSkills({ xp: newXp, level });
     setGold(gold + earnedGoldFromMonster);
+
+    alert.info("Monster killed");
   };
 
   const onLevelUp = () => {
     const { xp, level } = skills;
     setCharacterDamage(characterDamage + level);
     setSkills({ xp, level: level + 1 });
+
+    alert.show("Gz! Level up!", { type: "lvlup" });
   };
 
   const attack = () => {
