@@ -13,7 +13,7 @@ function Store() {
           onClick={() => setShowingStore(!showingStore)}
           className="store__seller pointer flex column"
         >
-          <p>Murilo, the Seller</p>
+          <p className="text-shadow">Murilo, the Seller</p>
           <img className="store__character" src={seller} alt="seller" />
           <img className="store__chest" src={chest} alt="chest" />
         </div>
