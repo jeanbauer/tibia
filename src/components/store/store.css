@@ -25,3 +25,17 @@
   width: 57px;
   height: 52px;
 }
+
+.store__items {
+  position: absolute;
+  background: #FFF;
+  padding: 10px;
+  border-radius: 4px;
+  border: 3px solid;
+  right: 250px;
+  top: 20px;
+}
+
+.store__item {
+  
+}
