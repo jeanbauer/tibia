@@ -8,7 +8,7 @@ const hpStyle = hp => {
   if (hp <= 20) color = "red";
   return {
     borderTop: `3px solid ${color}`,
-    width: `${hp}%`
+    width: `${hp >= 100 ? 100 : hp}%`
   };
 };
 

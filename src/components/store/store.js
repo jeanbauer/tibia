@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import seller from "../../images/outfits/hardcore.png";
 import chest from "./chest.gif";
 import { items } from "../../images/items";
-
+import Item from "../item/item";
 import "./store.css";
 
 function Store(props) {
@@ -24,29 +24,49 @@ function Store(props) {
 
   return (
     <>
-      <div className="store flex">
-        <div
-          onClick={() => setShowingStore(!showingStore)}
-          className="store__seller pointer flex column"
-        >
-          <p className="text-shadow">Murilo, the Seller</p>
-          <img className="store__character" src={seller} alt="seller" />
-          <img className="store__chest" src={chest} alt="chest" />
+      {!showingStore && (
+        <div className="store flex">
+          <div
+            onClick={() => setShowingStore(!showingStore)}
+            className="store__seller pointer flex column"
+          >
+            <p className="text-shadow">Murilo, the Seller</p>
+            <img className="store__character" src={seller} alt="seller" />
+            <img className="store__chest" src={chest} alt="chest" />
+          </div>
         </div>
-      </div>
+      )}
 
       {showingStore && (
-        <div className="store__items">
-          {equipments.map(item => (
-            <div className="store__item">
-              <p>Name: {item.name}</p>
-              <p>Price: {item.price}</p>
-              <p>Attack: {item.attack}</p>
-              <img src={item.img} alt={item.name} />
-              <button onClick={() => purchaseItem(item)}>Buy</button>
+        <Item
+          name="Store"
+          icon={chest}
+          onClose={() => setShowingStore(!showingStore)}
+        >
+          <div className="flex start column">
+            <div className="store__items">
+              {equipments.map(item => (
+                <div className="store__item">
+                  <div className="flex space-between">
+                    <div className="flex column">
+                      <span>{item.name}</span>
+                      <span>
+                        $ {item.price} | +{item.attack} atk
+                      </span>
+                    </div>
+                    <img src={item.img} alt={item.name} />
+                    <button
+                      className="store__button pointer"
+                      onClick={() => purchaseItem(item)}
+                    >
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        </Item>
       )}
     </>
   );

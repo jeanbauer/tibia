@@ -7,8 +7,6 @@ import Battle from "./components/monster/battle";
 import Equipment from "./components/equipment/equipment";
 import StatusBar from "./components/statusbar/statusbar";
 import Github from "./components/github";
-
-import Map from "./components/map/map";
 import Store from "./components/store/store";
 import { defaultItems } from "./images/items";
 
@@ -22,7 +20,7 @@ function Sidebar(props) {
 
 function App() {
   const [gold, setGold] = useState(1);
-  const [idleGold, setIdleGold] = useState(1);
+  const [idleGold, setIdleGold] = useState(10);
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
   const [hp, setHP] = useState(100);
   const [characterDamage, setCharacterDamage] = useState(40);
@@ -43,7 +41,7 @@ function App() {
   const onKillMonster = () => {
     // it should increase accordingly to the monster, not fixed.
     const earnedXpFromMonster = 25;
-    const earnedGoldFromMonster = 1;
+    const earnedGoldFromMonster = 15;
     const { xp, level } = skills;
 
     const newXp = xp + earnedXpFromMonster;
@@ -63,7 +61,7 @@ function App() {
 
     if (newHP <= 0) {
       onKillMonster();
-      setHP(100);
+      setHP(100 + skills.level * 10);
       return;
     }
 
@@ -79,7 +77,6 @@ function App() {
       </div>
 
       <Sidebar>
-        {/* <Map /> */}
         <Store gold={gold} onPurchaseItem={onPurchaseItem} />
         <Equipment equipments={equipments} />
         <StatusBar />
