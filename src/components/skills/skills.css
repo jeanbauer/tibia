@@ -18,7 +18,8 @@
   margin-top: 2px;
 }
 
-.skills__bar__progress {
+.skills__bar__level {
+  transition: width 1s ease-in-out;
   background-color: red;
   height: 2px;
 }
