@@ -20,6 +20,7 @@ function Sidebar(props) {
 }
 
 function App() {
+  const [status, setStatus] = useState({health:100, healthMax:150, mana:5, manaMax:55});
   const [gold, setGold] = useState(1);
   const [idleGold, setIdleGold] = useState(10);
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
@@ -56,6 +57,8 @@ function App() {
 
   const onLevelUp = () => {
     const { xp, level } = skills;
+    const { healthMax, manaMax } = status;
+    setStatus({healthMax: healthMax + 30, health: healthMax + 30, manaMax: manaMax + 5, mana: manaMax + 5})
     setCharacterDamage(characterDamage + level);
     setSkills({ xp, level: level + 1 });
 
@@ -85,7 +88,7 @@ function App() {
       <Sidebar>
         <Store gold={gold} onPurchaseItem={onPurchaseItem} />
         <Equipment equipments={equipments} />
-        <StatusBar />
+        <StatusBar status={status} level={skills.level}/>
         <Battle hp={hp} attack={attack} level={skills.level} />
         <Skills onLevelUp={onLevelUp} xp={skills.xp} level={skills.level} />
         <Backpack gold={gold} />

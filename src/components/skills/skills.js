@@ -39,8 +39,8 @@ function Skills(props) {
 
         <div className="skills__bar">
           <div
-            style={{ width: `${xpProgress}%` }}
-            className="skills__bar__progress"
+            style={{ width: `${xpProgress}% ` }}
+            className="skills__bar__level"
           ></div>
         </div>
       </div>

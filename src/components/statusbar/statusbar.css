@@ -1,0 +1,54 @@
+.cropped {
+    width: 20px;
+    height: 27px;
+    overflow: hidden;
+}
+
+.cropped img{
+    margin-top: -2px;
+}
+
+
+.statusBar {
+  width: 100px;
+  height: 10px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  margin: 1px 0;
+  background: rgb(57,99,185);
+  background: linear-gradient(180deg, rgba(48,85,159,1) 0%, rgba(47,85,162,0) 100%);
+}
+
+.health, .mana {
+    margin: 1px 3px;
+    font-weight: bold;
+    font-size: 11px;
+    color: #adaead;
+}
+
+.healthBar {
+  height: 10px;
+  background: rgb(59,0,0);
+  background: linear-gradient(180deg, rgba(167,12,12,1) 0%, rgba(249,119,120,1) 100%);
+  transition: width 1s ease-in-out;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.manaBar {
+  height: 10px;
+  background: rgb(59,0,0);
+  background: linear-gradient(180deg, rgba(35,29,150,1) 0%, rgba(103,104,214,1) 100%);
+  transition: width 1s ease-in-out;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.endBarStyle {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
