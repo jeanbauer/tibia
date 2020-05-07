@@ -1,22 +1,24 @@
-import React from "react";
+import React from 'react'
 
 const Github = () => (
   <div
     style={{
-      position: "absolute",
-      left: "20px",
-      bottom: "20px"
+      position: 'absolute',
+      left: '20px',
+      bottom: '20px',
     }}
   >
     <a
-      class="github-button"
-      href="https://github.com/jeanbauer/tibia"
-      data-size="large"
-      aria-label="Check the code on Github on GitHub"
+      className='github-button'
+      href='https://github.com/jeanbauer/tibia'
+      data-size='large'
+      size='large'
+      data-icon='octicon-star'
+      aria-label='Star jeanbauer/tibia on GitHub'
     >
-      Check the code on Github
+      Star on Github
     </a>
   </div>
-);
+)
 
-export default Github;
+export default Github
