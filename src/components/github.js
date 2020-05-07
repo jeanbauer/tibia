@@ -9,13 +9,13 @@ const Github = () => (
     }}
   >
     <a
-      className='github-button'
+      className='btn'
       href='https://github.com/jeanbauer/tibia'
-      data-size='large'
-      size='large'
-      data-icon='octicon-star'
       aria-label='Star jeanbauer/tibia on GitHub'
     >
+      <span className='btn__star animated bounce' role='img' aria-label='star'>
+        ⭐
+      </span>{' '}
       Star on Github
     </a>
   </div>
