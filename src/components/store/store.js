@@ -1,59 +1,59 @@
-import React, { useState } from "react";
-import seller from "../../images/outfits/murilo_the_seller.png";
-import chest from "./chest.gif";
-import { items } from "../../images/items";
-import Item from "../item/item";
-import "./store.css";
+import React, { useState } from 'react'
+import seller from '../../images/outfits/murilo_the_seller.png'
+import chest from './chest.gif'
+import { items } from '../../images/items'
+import Item from '../item/item'
+import './store.css'
 
 function Store(props) {
-  const [showingStore, setShowingStore] = useState(false);
-  const [equipments, setEquipments] = useState(items);
+  const [showingStore, setShowingStore] = useState(false)
+  const [equipments, setEquipments] = useState(items)
 
-  const purchaseItem = item => {
+  const purchaseItem = (item) => {
     if (props.gold - item.price < 0) {
-      return alert("Not enough gold");
+      return alert('Not enough gold')
     }
 
     const equipmentsWithoutThePurchased = equipments.filter(
-      equip => equip.name !== item.name
-    );
-    setEquipments(equipmentsWithoutThePurchased);
+      (equip) => equip.name !== item.name
+    )
+    setEquipments(equipmentsWithoutThePurchased)
 
-    props.onPurchaseItem(item);
-  };
+    props.onPurchaseItem(item)
+  }
 
   return (
     <>
       {!showingStore && (
-        <div className="store flex">
+        <div className='store flex'>
           <div
             onClick={() => setShowingStore(!showingStore)}
-            className="store__seller pointer flex column"
+            className='store__seller pointer flex column'
           >
-            <p className="text-shadow">Murilo, the Seller</p>
+            <p className='text-shadow'>Murilo, the Seller</p>
             <img
-              className="store__character"
-              width="100"
+              className='store__character'
+              width='100'
               src={seller}
-              alt="seller"
+              alt='seller'
             />
-            <img className="store__chest" src={chest} alt="chest" />
+            <img className='store__chest' src={chest} alt='chest' />
           </div>
         </div>
       )}
 
       {showingStore && (
         <Item
-          name="Store"
+          name='Store'
           icon={chest}
           onClose={() => setShowingStore(!showingStore)}
         >
-          <div className="flex start column">
-            <div className="store__items">
-              {equipments.map(item => (
-                <div className="store__item">
-                  <div className="flex space-between">
-                    <div className="flex column">
+          <div className='flex start column'>
+            <div className='store__items'>
+              {equipments.map((item) => (
+                <div key={item.name} className='store__item'>
+                  <div className='flex space-between'>
+                    <div className='flex column'>
                       <span>{item.name}</span>
                       <span>
                         $ {item.price} | +{item.attack} atk
@@ -61,7 +61,7 @@ function Store(props) {
                     </div>
                     <img src={item.img} alt={item.name} />
                     <button
-                      className="store__button pointer"
+                      className='store__button pointer'
                       onClick={() => purchaseItem(item)}
                     >
                       Buy
@@ -74,7 +74,7 @@ function Store(props) {
         </Item>
       )}
     </>
-  );
+  )
 }
 
-export default Store;
+export default Store
