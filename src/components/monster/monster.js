@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import getMonster from "./monsters";
 import "./monster.css";
 
