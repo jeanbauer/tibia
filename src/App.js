@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAlert } from "react-alert";
 
 import Character from "./components/character/character";
@@ -22,7 +22,7 @@ function Sidebar(props) {
 function App() {
   const [status, setStatus] = useState({health:100, healthMax:150, mana:5, manaMax:55});
   const [gold, setGold] = useState(1);
-  const [idleGold, setIdleGold] = useState(10);
+  const [idleGold] = useState(10);
   const [skills, setSkills] = useState({ xp: 0, level: 1 });
   const [hp, setHP] = useState(100);
   const [characterDamage, setCharacterDamage] = useState(40);
