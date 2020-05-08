@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import statusbar from "./status_bar.png";
 import './statusbar.css';
 
@@ -9,18 +9,18 @@ function StatusBar({status, level}) {
   let manaEndBarStyle = (manaBar > 99) ? 'endBarStyle' : '' ;
 
   return (
-    
+
 
     <div className="flex center">
       <div className="cropped">
-        <img src={statusbar} />
+        <img src={statusbar} alt='status bar' />
       </div>
       <div className="column center">
         <div className='statusBar'>
-          <div className={'healthBar '+healthEndBarStyle} style={{'width': healthBar+'%'}}></div>
+          <div className={'healthBar '+healthEndBarStyle} style={{'width': healthBar+'%'}} />
         </div>
         <div className='statusBar'>
-          <div className={'manaBar '+manaEndBarStyle} style={{'width': manaBar+'%'}}></div> 
+          <div className={'manaBar '+manaEndBarStyle} style={{'width': manaBar+'%'}} />
         </div>
       </div>
       <div className="column center">
@@ -30,10 +30,8 @@ function StatusBar({status, level}) {
         <div className='mana'>
           {status.mana}
         </div>
-      </div>  
+      </div>
     </div>
-      // className="flex center statusbar"
-    
   );
 }
 

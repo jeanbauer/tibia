@@ -5,7 +5,7 @@ function Character() {
   return (
     <div className="character flex center column">
       <p className="text-shadow">You</p>
-      <img src={character} />
+      <img src={character} alt="character" />
     </div>
   );
 }
