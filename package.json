@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.13.1",
-    "react-alert": "^7.0.0",
+    "react-alert": "^7.0.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
@@ -30,6 +30,6 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react": "^10.0.4"
+    "@testing-library/react": "^10.0.5"
   }
 }
