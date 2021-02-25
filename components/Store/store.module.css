@@ -1,0 +1,64 @@
+.store {
+  margin: 5px;
+  padding: 0 0 5px 0;
+}
+
+.storeSeller {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+.storeSeller p,
+.character p {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* to centralize the img with the seller's name */
+.storeCharacter,
+.character img {
+  margin: -40px 60px 11px 0;
+}
+
+.storeChest {
+  width: 57px;
+  height: 52px;
+}
+
+.storeItems {
+  padding: 4px;
+  border-radius: 4px;
+  overflow-y: scroll;
+  max-height: 140px;
+}
+
+.storeItems::-webkit-scrollbar {
+  width: 3px;
+}
+
+.storeItems::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.storeItems::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
+.storeItem {
+  margin-top: 4px;
+  border-bottom: 1px solid #2f3435;
+  padding-bottom: 6px;
+}
+
+.storeItem:first-child {
+  margin-top: -2px;
+}
+
+.storeButton {
+  background: #2196f3;
+  border: none;
+  color: #fff;
+}
