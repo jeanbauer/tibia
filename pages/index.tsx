@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, Box, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 
 import useInterval from '../hooks/setInterval'
@@ -28,7 +28,7 @@ export default function Home() {
   const [hp, setHP] = useState(100)
   const [characterDamage, setCharacterDamage] = useState(40)
   const [equipments, setEquipments] = useState(defaultItems)
-  // const alert = useAlert()
+  const toast = useToast()
 
   useInterval(() => {
     setGold(gold + idleGold)
@@ -53,8 +53,14 @@ export default function Home() {
     setSkills({ xp: newXp, level })
     setGold(gold + earnedGoldFromMonster)
 
-    // alert.info('Monster killed')
-    console.log('Monster killed')
+    toast({
+      position: 'bottom-left',
+      title: 'Monster killed.',
+      // description: "If you keep like this dungeon quest",
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
   }
 
   const onLevelUp = () => {
@@ -69,8 +75,15 @@ export default function Home() {
     setCharacterDamage(characterDamage + level)
     setSkills({ xp, level: level + 1 })
 
-    // alert.show('Gz! Level up!', { type: 'lvlup' })
-    console.log('Gz! Level up!', { type: 'lvlup' })
+    toast({
+      position: 'bottom-left',
+      title: 'Level up!',
+      description:
+        'If you keep like this we can do The Desert Dungeon today...',
+      status: 'success',
+      duration: 6000,
+      isClosable: true,
+    })
   }
 
   const attack = () => {
