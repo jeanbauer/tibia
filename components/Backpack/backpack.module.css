@@ -1,0 +1,21 @@
+.slot {
+  background-color: #2b2625;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  margin: 2px;
+
+  border: 1px solid #808080;
+  border-top-color: black;
+  border-left-color: black;
+}
+
+.slot span {
+  position: absolute;
+  right: 3px;
+  bottom: 1px;
+  text-align: right;
+  font-weight: bold;
+  color: #eaeaea;
+  font-size: 10px;
+}
