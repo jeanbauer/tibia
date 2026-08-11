@@ -6,8 +6,10 @@ import { toaster } from './ui/toaster'
 /** Listens to game state transitions and shows UI feedback. */
 const GameToasts = () => {
   const killCount = useGameStore((s) => s.killCount)
+  const deathCount = useGameStore((s) => s.deathCount)
   const level = useGameStore((s) => s.skills.level)
   const prevKillCount = useRef(killCount)
+  const prevDeathCount = useRef(deathCount)
   const prevLevel = useRef(level)
 
   useEffect(() => {
@@ -21,6 +23,17 @@ const GameToasts = () => {
     prevKillCount.current = killCount
   }, [killCount])
 
+  useEffect(() => {
+    if (deathCount > prevDeathCount.current) {
+      toaster.create({
+        title: 'You died!',
+        description: 'The temple healed your wounds. Try again...',
+        type: 'error',
+        duration: 4000,
+      })
+    }
+    prevDeathCount.current = deathCount
+  }, [deathCount])
   useEffect(() => {
     if (level > prevLevel.current) {
       toaster.create({

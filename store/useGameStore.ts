@@ -6,9 +6,11 @@ import {
   IDLE_GOLD_AMOUNT,
   XP_PER_KILL,
   GOLD_PER_KILL,
+  MANA_RESTORE_ON_KILL,
   LEVEL_UP_HEALTH_BONUS,
   LEVEL_UP_MANA_BONUS,
   monsterHpForLevel,
+  retaliationDamage,
   xpForLevel,
 } from '../lib/game'
 
@@ -19,7 +21,9 @@ interface GameState {
   monsterHp: number
   characterDamage: number
   equipments: Equipments
+  purchasedItemNames: string[]
   killCount: number
+  deathCount: number
 
   addIdleGold: () => void
   attack: () => void
@@ -35,21 +39,41 @@ export const useGameStore = create<GameState>((set, get) => ({
   monsterHp: 100,
   characterDamage: 40,
   equipments: defaultItems,
+  purchasedItemNames: [],
   killCount: 0,
+  deathCount: 0,
 
   addIdleGold: () => set((s) => ({ gold: s.gold + IDLE_GOLD_AMOUNT })),
 
   attack: () => {
-    const { monsterHp, characterDamage } = get()
-    const newHp = monsterHp - characterDamage
+    const { monsterHp, characterDamage, skills, status } = get()
+    const incoming = retaliationDamage(skills.level)
+    const healthAfterHit = status.health - incoming
 
-    if (newHp <= 0) {
+    // Player dies → temple revive (full HP/Mana)
+    if (healthAfterHit <= 0) {
+      set({
+        status: {
+          ...status,
+          health: status.healthMax,
+          mana: status.manaMax,
+        },
+        deathCount: get().deathCount + 1,
+      })
+      return
+    }
+
+    set({ status: { ...status, health: healthAfterHit } })
+
+    const newMonsterHp = monsterHp - characterDamage
+
+    if (newMonsterHp <= 0) {
       get().killMonster()
       set({ monsterHp: monsterHpForLevel(get().skills.level) })
       return
     }
 
-    set({ monsterHp: newHp })
+    set({ monsterHp: newMonsterHp })
   },
 
   killMonster: () => {
@@ -57,6 +81,10 @@ export const useGameStore = create<GameState>((set, get) => ({
       skills: { ...s.skills, xp: s.skills.xp + XP_PER_KILL },
       gold: s.gold + GOLD_PER_KILL,
       killCount: s.killCount + 1,
+      status: {
+        ...s.status,
+        mana: Math.min(s.status.manaMax, s.status.mana + MANA_RESTORE_ON_KILL),
+      },
     }))
 
     while (get().skills.xp >= xpForLevel(get().skills.level + 1)) {
@@ -80,8 +108,11 @@ export const useGameStore = create<GameState>((set, get) => ({
     }),
 
   purchaseItem: (item: ItemType) => {
-    const { gold } = get()
+    const { gold, purchasedItemNames } = get()
     if (gold < item.price) {
+      return false
+    }
+    if (purchasedItemNames.includes(item.name)) {
       return false
     }
 
@@ -89,6 +120,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       gold: s.gold - item.price,
       characterDamage: s.characterDamage + item.attack,
       equipments: { ...s.equipments, [item.type]: item },
+      purchasedItemNames: [...s.purchasedItemNames, item.name],
     }))
     return true
   },

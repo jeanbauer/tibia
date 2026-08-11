@@ -12,6 +12,7 @@ import Equipment from '../components/Equipment/equipment'
 import StatusBar from '../components/Statusbar/statusbar'
 import Github from '../components/Media/github'
 import Store from '../components/Store/store'
+import Map from '../components/Map/map'
 import GameToasts from '../components/GameToasts'
 
 import { background } from '../components/Images'
@@ -39,6 +40,7 @@ export default function Home() {
         <Store />
         <Equipment />
         <StatusBar />
+        <Map />
         <Battle />
         <Skills />
         <Backpack />

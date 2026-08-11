@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDisclosure, Text, Button, Flex } from '@chakra-ui/react'
 
 import { seller, chest, items, grass } from '../Images'
@@ -11,9 +10,11 @@ import styles from './store.module.css'
 
 const Store = () => {
   const gold = useGameStore((s) => s.gold)
+  const purchasedItemNames = useGameStore((s) => s.purchasedItemNames)
   const purchaseItem = useGameStore((s) => s.purchaseItem)
   const { open, onOpen, onClose } = useDisclosure()
-  const [storeItems, setStoreItems] = useState(items)
+
+  const storeItems = items.filter((item) => !purchasedItemNames.includes(item.name))
 
   const handleBuy = (item: ItemType) => {
     const purchased = purchaseItem(item)
@@ -23,10 +24,7 @@ const Store = () => {
         type: 'error',
         duration: 3000,
       })
-      return
     }
-
-    setStoreItems((prev) => prev.filter((i) => i.name !== item.name))
   }
 
   return (
