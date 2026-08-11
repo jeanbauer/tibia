@@ -12,6 +12,7 @@ import Equipment from '../components/Equipment/equipment'
 import StatusBar from '../components/Statusbar/statusbar'
 import Github from '../components/Media/github'
 import Store from '../components/Store/store'
+import GameToasts from '../components/GameToasts'
 
 import { background } from '../components/Images'
 
@@ -22,6 +23,7 @@ export default function Home() {
 
   return (
     <Flex>
+      <GameToasts />
       <Flex justifyContent='space-between' direction='column' className='floor'>
         <Github />
         <Monster />

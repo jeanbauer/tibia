@@ -2,7 +2,6 @@ import { create } from 'zustand'
 
 import { defaultItems } from '../components/Images/Images'
 import { ItemType, Status } from '../types'
-import { toaster } from '../components/ui/toaster'
 import {
   IDLE_GOLD_AMOUNT,
   XP_PER_KILL,
@@ -20,6 +19,7 @@ interface GameState {
   monsterHp: number
   characterDamage: number
   equipments: typeof defaultItems
+  killCount: number
 
   addIdleGold: () => void
   attack: () => void
@@ -35,6 +35,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   monsterHp: 100,
   characterDamage: 40,
   equipments: defaultItems,
+  killCount: 0,
 
   addIdleGold: () => set((s) => ({ gold: s.gold + IDLE_GOLD_AMOUNT })),
 
@@ -55,12 +56,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     set((s) => ({
       skills: { ...s.skills, xp: s.skills.xp + XP_PER_KILL },
       gold: s.gold + GOLD_PER_KILL,
+      killCount: s.killCount + 1,
     }))
-    toaster.create({
-      title: 'Monster killed.',
-      type: 'success',
-      duration: 3000,
-    })
 
     while (get().skills.xp >= xpForLevel(get().skills.level + 1)) {
       get().levelUp()
