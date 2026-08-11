@@ -3,6 +3,10 @@ import { useEffect, useRef } from 'react'
 import { useGameStore } from '@/store/useGameStore'
 import { toaster } from '@/components/ui/toaster'
 
+const showToast = (...args: Parameters<typeof toaster.create>) => {
+  queueMicrotask(() => toaster.create(...args))
+}
+
 /** Listens to game state transitions and shows UI feedback. */
 const GameToasts = () => {
   const killCount = useGameStore((s) => s.killCount)
@@ -14,7 +18,7 @@ const GameToasts = () => {
 
   useEffect(() => {
     if (killCount > prevKillCount.current) {
-      toaster.create({
+      showToast({
         title: 'Monster killed.',
         type: 'success',
         duration: 3000,
@@ -25,7 +29,7 @@ const GameToasts = () => {
 
   useEffect(() => {
     if (deathCount > prevDeathCount.current) {
-      toaster.create({
+      showToast({
         title: 'You died!',
         description: 'The temple healed your wounds. Try again...',
         type: 'error',
@@ -34,9 +38,10 @@ const GameToasts = () => {
     }
     prevDeathCount.current = deathCount
   }, [deathCount])
+
   useEffect(() => {
     if (level > prevLevel.current) {
-      toaster.create({
+      showToast({
         title: 'Level up!',
         description: 'If you keep like this we can do The Desert Dungeon today...',
         type: 'success',

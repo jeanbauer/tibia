@@ -36,6 +36,7 @@ const Store = () => {
             cursor='pointer'
             onClick={() => onOpen()}
             className={styles.storeSeller}
+            data-testid='store-seller'
           >
             <Text className='text-shadow'>Murilo, the Seller</Text>
             <img

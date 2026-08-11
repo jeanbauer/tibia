@@ -19,7 +19,7 @@ const Monster = () => {
         <div className={skillsStyles.skillsBar}>
           <div style={hpBarStyle(hp)}></div>
         </div>
-        <img src={img} alt={name} />
+        <img src={img} alt={name} data-testid='monster-sprite' />
       </Box>
     </Flex>
   )

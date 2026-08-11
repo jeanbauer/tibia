@@ -15,12 +15,12 @@ const Skills = () => {
       <Flex direction='column' justify='flex-start'>
         <Flex className={styles.skillsLine}>
           <Text>Experience</Text>
-          <Text>{xp}</Text>
+          <Text data-testid='stat-experience'>{xp}</Text>
         </Flex>
 
         <Flex className={styles.skillsLine}>
           <Text>Level</Text>
-          <Text>{level}</Text>
+          <Text data-testid='stat-level'>{level}</Text>
         </Flex>
 
         <div className={styles.skillsBar}>

@@ -13,7 +13,7 @@ const Backpack = () => {
 
   return (
     <Item name='Backpack' icon={backpack}>
-      <Flex wrap='wrap'>
+      <Flex wrap='wrap' data-testid='backpack-gold' data-gold={String(gold)}>
         {memoizedCalculateCoins
           .filter(({ amount }) => amount > 0)
           .map(({ asset, amount }, i) => (

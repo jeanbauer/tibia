@@ -11,8 +11,10 @@ interface Props {
 }
 
 const Item = (props: Props) => {
+  const panelId = `panel-${props.name.toLowerCase()}`
+
   return (
-    <Box className={styles.item}>
+    <Box className={styles.item} data-testid={panelId}>
       <Flex direction='column' className={styles.itemInternBorder}>
         <Flex justify='flex-start' className={styles.itemTitle}>
           <img width='14' src={props.icon} alt={props.icon} />
