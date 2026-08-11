@@ -1,16 +1,24 @@
-# Tibia Idle Game
+# Tibia Idle Game (Unofficial Fan Tribute)
 
-> I do not own any rights — this is a tribute to the greatest game ever.
+**Unofficial, non-commercial fan tribute** — not affiliated with CipSoft GmbH or the official [Tibia](https://www.tibia.com/) game. No ownership of Tibia trademarks or copyrighted materials is claimed. Full legal notice: **[LEGAL.md](./LEGAL.md)**.
 
-A browser-based idle/clicker game inspired by [Tibia](https://www.tibia.com/). Click monsters, earn XP and gold, level up, buy gear from Murilo the Seller, and watch gold pile up while idle.
+## What this project is
+
+A tiny browser idle game where you:
+
+- click monsters for XP and gold
+- level up and buy gear from an NPC shop
+- earn a bit of gold while idle
+
+Built as a coding playground / nostalgia tribute — nothing more.
 
 ## Stack
 
-- **Next.js** (Pages Router) + **React 18**
-- **Chakra UI v3**
-- **Zustand** for game state
-- **TypeScript** (strict)
-- **Vitest** + **Playwright** for tests
+- Next.js (Pages Router) + React 18
+- Chakra UI v3
+- Zustand
+- TypeScript (strict)
+- Vitest + Playwright
 
 ## Getting started
 
@@ -21,22 +29,22 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-Other useful scripts:
-
 ```bash
-yarn build        # production build
-yarn type-check   # TypeScript
-yarn lint         # ESLint
-yarn test         # unit tests
-yarn test:e2e     # Playwright e2e
+yarn build
+yarn type-check
+yarn lint
+yarn test
+yarn test:e2e
 ```
 
 ## Contributing
 
-Check open issues: [issues](https://github.com/jeanbauer/tibia/issues).
+Please keep contributions **non-commercial**, clearly unofficial, and respectful of CipSoft / Tibia IP (see [LEGAL.md](./LEGAL.md)).
 
-Commit messages should use [gitmoji](https://gitmoji.dev/) (see `AGENTS.md` and `.cursor/rules/git-commits.mdc`).
+Open issues: [issues](https://github.com/jeanbauer/tibia/issues).  
+Commit style: [gitmoji](https://gitmoji.dev/) (see `AGENTS.md`).
 
-## Tribute
+## Dedication
 
-> Thanks Tibia! 🙏 Miss all my Saphira friends. ❤️
+Thanks, Tibia — and thanks to everyone who shared those early nights hunting rats and dreaming of dragons.  
+Miss all my Saphira friends. ❤️
