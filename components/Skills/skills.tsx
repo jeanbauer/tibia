@@ -6,7 +6,7 @@ import styles from './skills.module.css'
 import { skills } from '../Images'
 import { useGameStore } from '../../store/useGameStore'
 import { toaster } from '../ui/toaster'
-import { xpProgressPercent } from '../../lib/game/xp'
+import { xpProgressPercent } from '../../lib/game'
 
 const Skills = () => {
   const { xp, level } = useGameStore((s) => s.skills)

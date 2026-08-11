@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react'
 
 import useInterval from '../hooks/setInterval'
 import { useGameStore } from '../store/useGameStore'
+import { IDLE_GOLD_INTERVAL_MS } from '../lib/game'
 import Character from '../components/Character/character'
 import Backpack from '../components/Backpack/backpack'
 import Monster from '../components/Monster/monster'
@@ -17,7 +18,7 @@ import { background } from '../components/Images'
 export default function Home() {
   const addIdleGold = useGameStore((s) => s.addIdleGold)
 
-  useInterval(addIdleGold, 5000)
+  useInterval(addIdleGold, IDLE_GOLD_INTERVAL_MS)
 
   return (
     <Flex>

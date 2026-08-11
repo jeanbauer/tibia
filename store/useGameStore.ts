@@ -3,11 +3,15 @@ import { create } from 'zustand'
 import { defaultItems } from '../components/Images/Images'
 import { ItemType, Status } from '../types'
 import { toaster } from '../components/ui/toaster'
-import { xpForLevel } from '../lib/game/xp'
-
-const IDLE_GOLD_INTERVAL = 10
-const XP_PER_KILL = 25
-const GOLD_PER_KILL = 15
+import {
+  IDLE_GOLD_AMOUNT,
+  XP_PER_KILL,
+  GOLD_PER_KILL,
+  LEVEL_UP_HEALTH_BONUS,
+  LEVEL_UP_MANA_BONUS,
+  monsterHpForLevel,
+  xpForLevel,
+} from '../lib/game'
 
 interface GameState {
   status: Status
@@ -32,7 +36,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   characterDamage: 40,
   equipments: defaultItems,
 
-  addIdleGold: () => set((s) => ({ gold: s.gold + IDLE_GOLD_INTERVAL })),
+  addIdleGold: () => set((s) => ({ gold: s.gold + IDLE_GOLD_AMOUNT })),
 
   attack: () => {
     const { monsterHp, characterDamage } = get()
@@ -40,8 +44,7 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     if (newHp <= 0) {
       get().killMonster()
-      const level = get().skills.level
-      set({ monsterHp: 100 + level * 10 })
+      set({ monsterHp: monsterHpForLevel(get().skills.level) })
       return
     }
 
@@ -59,7 +62,6 @@ export const useGameStore = create<GameState>((set, get) => ({
       duration: 3000,
     })
 
-    // Apply all earned levels in domain logic (not in a UI effect)
     while (get().skills.xp >= xpForLevel(get().skills.level + 1)) {
       get().levelUp()
     }
@@ -70,10 +72,10 @@ export const useGameStore = create<GameState>((set, get) => ({
       const { healthMax, manaMax } = s.status
       return {
         status: {
-          healthMax: healthMax + 30,
-          health: healthMax + 30,
-          manaMax: manaMax + 5,
-          mana: manaMax + 5,
+          healthMax: healthMax + LEVEL_UP_HEALTH_BONUS,
+          health: healthMax + LEVEL_UP_HEALTH_BONUS,
+          manaMax: manaMax + LEVEL_UP_MANA_BONUS,
+          mana: manaMax + LEVEL_UP_MANA_BONUS,
         },
         characterDamage: s.characterDamage + s.skills.level,
         skills: { ...s.skills, level: s.skills.level + 1 },
