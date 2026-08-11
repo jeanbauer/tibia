@@ -6,14 +6,16 @@ A browser-based idle/clicker game built as a personal tribute to the classic MMO
 
 | Layer | Technology | Version |
 |---|---|---|
-| Framework | Next.js (Pages Router) | 15.x |
+| Framework | Next.js (Pages Router) | 16.x |
 | UI | React | 18.x |
-| Components | Chakra UI | 2.x |
-| Animations | Framer Motion | 11.x |
+| Components | Chakra UI | 3.x |
 | CSS-in-JS | Emotion | 11.x |
+| State | Zustand | 5.x |
 | Language | TypeScript | 6.x |
 | Linting | ESLint (flat config) | 10.x |
 | Formatting | Prettier | 3.x |
+| Unit tests | Vitest | 4.x |
+| E2E tests | Playwright | 1.x |
 
 ## Git Commits
 
@@ -42,6 +44,8 @@ yarn build        # Production build
 yarn type-check   # tsc --noEmit
 yarn lint         # next lint
 yarn format       # prettier --write .
+yarn test         # Vitest unit tests
+yarn test:e2e     # Playwright e2e tests
 ```
 
 ## Project Structure
@@ -49,8 +53,12 @@ yarn format       # prettier --write .
 ```
 tibia/
 ├── pages/
-│   ├── _app.tsx          # ChakraProvider wrapper
-│   └── index.tsx         # All game state lives here (single-page app)
+│   ├── _app.tsx          # ChakraProvider + Toaster
+│   └── index.tsx         # Layout shell + idle gold timer
+├── store/
+│   └── useGameStore.ts   # Zustand store — all game state + actions
+├── lib/
+│   └── game/             # Pure game rules (XP formula, rewards, etc.)
 ├── components/
 │   ├── Backpack/         # Gold display as stacked coin denominations
 │   │   └── coins/        # calculateCoins(): gold → gold/platinum/crystal breakdown
@@ -64,18 +72,21 @@ tibia/
 │   │   ├── Misc.ts       # Misc image paths
 │   │   └── index.tsx     # Re-exports all image references
 │   ├── Item/             # Generic panel/container used by Skills, Backpack, Store, etc.
-│   ├── Map/              # Map display
+│   ├── Map/              # Map display (not currently wired into the main layout)
 │   ├── Media/            # GitHub link overlay
 │   ├── Monster/
 │   │   ├── monster.tsx   # Monster with HP bar, click-to-attack
 │   │   └── battle.tsx    # Battle panel UI
-│   ├── Skills/           # XP, level, XP progress bar
+│   ├── Skills/           # XP, level, XP progress bar (display only)
 │   ├── Statusbar/        # Player HP/Mana bars
-│   └── Store/            # "Murilo, the Seller" NPC shop
+│   ├── Store/            # "Murilo, the Seller" NPC shop
+│   └── ui/
+│       └── toaster.tsx   # Chakra v3 toaster singleton
 ├── hooks/
 │   └── setInterval.ts    # Declarative useInterval hook (Dan Abramov pattern)
 ├── types/
 │   └── index.ts          # ItemType, ItemsType, Status
+├── e2e/                  # Playwright end-to-end tests
 ├── styles/
 │   └── globals.css       # Global CSS (text-shadow utility class)
 └── public/images/        # All game assets (GIFs/PNGs)
@@ -88,7 +99,7 @@ tibia/
 
 ## Core Game Logic
 
-All game state lives in `pages/index.tsx` as flat `useState` — no global store.
+All game state lives in `store/useGameStore.ts` (Zustand). Components subscribe to slices they need — no prop drilling.
 
 ### State
 
@@ -96,23 +107,22 @@ All game state lives in `pages/index.tsx` as flat `useState` — no global store
 |---|---|---|
 | `status` | `Status` | Player HP/Mana (current + max) |
 | `gold` | `number` | Current gold balance |
-| `idleGold` | `number` | Gold earned passively (10 every 5s) |
 | `skills` | `{ xp, level }` | Player XP and level |
-| `hp` | `number` | Current monster HP (0–100+) |
+| `monsterHp` | `number` | Current monster HP |
 | `characterDamage` | `number` | Attack power (increases on item buy / level-up) |
-| `equipments` | `typeof defaultItems` | Equipped items keyed by slot name |
+| `equipments` | equipment slots | Equipped items keyed by slot name |
 
 ### Key Flows
 
-- **Click monster** → `attack()` reduces monster HP by `characterDamage`; at 0 triggers `onKillMonster()`
-- **Kill monster** → awards fixed XP (25) + gold (15), spawns new monster with `hp = 100 + level * 10`
-- **Level up** → auto-triggered in `Skills` component when XP threshold is reached; increases max HP/Mana and damage
+- **Click monster** → `attack()` reduces monster HP by `characterDamage`; at 0 triggers `killMonster()`
+- **Kill monster** → awards XP + gold, then applies any earned level-ups in the store, spawns new monster with `hp = 100 + level * 10`
+- **Level up** → applied in store when XP crosses the next threshold; increases max HP/Mana and damage
 - **Buy item** → deducts gold, increases `characterDamage` by `item.attack`, fills equipment slot
-- **Idle gold** → `useInterval` fires every 5s to passively add `idleGold`
+- **Idle gold** → `useInterval` in `pages/index.tsx` fires every 5s to call `addIdleGold()` (+10 gp)
 
 ### XP Formula
 
-Uses the official Tibia XP-to-level formula:
+Uses the official Tibia XP-to-level formula (`lib/game/xp.ts`):
 
 ```
 xpForLevel(L) = (50/3)·L³ − 100·L² + (850/3)·L − 200
@@ -124,27 +134,29 @@ Levels 1–16 map to specific monsters (rat → minotaur). Level 17+ always spaw
 
 ### Coin Denominations
 
-Gold is broken into visual stacks:
-- **Gold coins**: 1–99 gp (denominations: 1, 2, 3, 4, 5, 10, 25)
-- **Platinum coins**: 100–999 gp (each = 100 gp)
-- **Crystal coins**: 1000+ gp (each = 10,000 gp)
+Gold is broken into visual stacks (see `calculateCoins`):
+- **Gold coins**: remainder under 100 gp
+- **Platinum coins**: 100 gp each (`floor((gp % 1000) / 100)`)
+- **Crystal coins**: 1000 gp each (`floor(gp / 1000)`)
 
 ## TypeScript Notes
 
 - `strict: true` is enabled — all new code must be fully typed
 - Path aliases configured: `@/*`, `@/components/*`, `@/hooks/*`, `@/types/*`, `@/styles/*`
-- `moduleResolution: "bundler"` (Next.js 15 default)
+- `moduleResolution: "bundler"` (Next.js default)
 
 ## Architecture Decisions
 
-- **No global state** — All state is passed via props from `pages/index.tsx`. If the app grows, consider Zustand or React Context.
-- **Pages Router** — Using Next.js Pages Router (not App Router). Migrating to App Router would require wrapping all Chakra components in a `"use client"` boundary.
-- **Chakra UI v2** — Intentionally staying on v2 (not v3). Chakra v3 is a full rewrite with breaking API changes; migration would require updating all component imports and prop names.
+- **Zustand store** — All game state and actions live in `store/useGameStore.ts`. Prefer selectors that subscribe to only needed slices.
+- **Pages Router** — Using Next.js Pages Router (not App Router). Migrating to App Router would require `"use client"` boundaries.
+- **Chakra UI v3** — Uses `ChakraProvider value={defaultSystem}`, `colorPalette` (not `colorScheme`), and `createToaster` (not `useToast`).
 - **CSS Modules** — Some components use `.module.css` for local scoping alongside Chakra's style props.
+- **Pure game rules** — XP math and similar pure logic belong in `lib/game/`, not in React components.
 
 ## Known Issues / TODOs
 
 - XP and gold rewards from monsters are fixed constants — should scale with monster level
 - No persistence — all state resets on page refresh (consider localStorage or a simple backend)
-- `backpack.test.js` is a plain JS test file with no test runner configured — needs Jest/Vitest setup
 - Equipment slots allow buying the same category multiple times (no slot conflict check)
+- Player HP/Mana are displayed but not yet used in combat
+- Map component exists but is not rendered in the main layout

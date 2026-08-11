@@ -1,21 +1,42 @@
 # Tibia Idle Game
-> I do not own any rights, this is just a tribute for the greatest game ever
 
-### Want to contribute?
+> I do not own any rights — this is a tribute to the greatest game ever.
 
-Cool! This little game uses React (16.13) and nothing else. I think it's a pretty simple and minimal code to understand.
+A browser-based idle/clicker game inspired by [Tibia](https://www.tibia.com/). Click monsters, earn XP and gold, level up, buy gear from Murilo the Seller, and watch gold pile up while idle.
 
-Check the open issues to see how you can help: [issues](https://github.com/jeanbauer/tibia/issues).
+## Stack
 
+- **Next.js** (Pages Router) + **React 18**
+- **Chakra UI v3**
+- **Zustand** for game state
+- **TypeScript** (strict)
+- **Vitest** + **Playwright** for tests
 
-### How to install and run
+## Getting started
 
-Probably you already know how to, but anyway, once you clone this repo:
+```bash
+yarn install
+yarn dev
+```
 
-`yarn add` and `yarn start`
+Open [http://localhost:3000](http://localhost:3000).
 
-> If you don't have yarn installed you can use npm.
+Other useful scripts:
 
+```bash
+yarn build        # production build
+yarn type-check   # TypeScript
+yarn lint         # ESLint
+yarn test         # unit tests
+yarn test:e2e     # Playwright e2e
+```
 
-#### This is a tribute
+## Contributing
+
+Check open issues: [issues](https://github.com/jeanbauer/tibia/issues).
+
+Commit messages should use [gitmoji](https://gitmoji.dev/) (see `AGENTS.md` and `.cursor/rules/git-commits.mdc`).
+
+## Tribute
+
 > Thanks Tibia! 🙏 Miss all my Saphira friends. ❤️
