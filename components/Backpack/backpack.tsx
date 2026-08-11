@@ -5,15 +5,11 @@ import Item from '../Item/item'
 import { backpack } from '../Images/Images'
 import calculateCoins from './coins'
 import styles from './backpack.module.css'
+import { useGameStore } from '../../store/useGameStore'
 
-interface Props {
-  gold: number
-}
-
-const Backpack = (props: Props) => {
-  const memoizedCalculateCoins = useMemo(() => calculateCoins(props.gold), [
-    props.gold,
-  ])
+const Backpack = () => {
+  const gold = useGameStore((s) => s.gold)
+  const memoizedCalculateCoins = useMemo(() => calculateCoins(gold), [gold])
 
   return (
     <Item name='Backpack' icon={backpack}>

@@ -1,9 +1,11 @@
 import { Text, Flex } from '@chakra-ui/react'
+import { useEffect } from 'react'
 
 import Item from '../Item/item'
 import styles from './skills.module.css'
-
 import { skills } from '../Images'
+import { useGameStore } from '../../store/useGameStore'
+import { toaster } from '../ui/toaster'
 
 // Tibia official formula
 // https://www.tibia.com/library/?subtopic=experiencetable
@@ -13,23 +15,28 @@ const xpForLevel = (level: number) =>
   (850 / 3) * level -
   200
 
-interface Props {
-  level: number
-  xp: number
-  onLevelUp: () => void
-}
+const Skills = () => {
+  const { xp, level } = useGameStore((s) => s.skills)
+  const levelUp = useGameStore((s) => s.levelUp)
 
-const Skills = (props: Props) => {
-  const nextLevelAmount = xpForLevel(props.level + 1)
-  const currentXP = props.xp
+  const nextLevelAmount = xpForLevel(level + 1)
+  const currentXP = xp
 
   const xpProgress =
-    (100 * (currentXP - xpForLevel(props.level))) /
-    (nextLevelAmount - xpForLevel(props.level))
+    (100 * (currentXP - xpForLevel(level))) /
+    (nextLevelAmount - xpForLevel(level))
 
-  if (currentXP - nextLevelAmount >= 0) {
-    props.onLevelUp()
-  }
+  useEffect(() => {
+    if (currentXP - nextLevelAmount >= 0) {
+      levelUp()
+      toaster.create({
+        title: 'Level up!',
+        description: 'If you keep like this we can do The Desert Dungeon today...',
+        type: 'success',
+        duration: 6000,
+      })
+    }
+  }, [currentXP, nextLevelAmount, levelUp])
 
   return (
     <Item name='Skills' icon={skills}>
@@ -41,7 +48,7 @@ const Skills = (props: Props) => {
 
         <Flex className={styles.skillsLine}>
           <Text>Level</Text>
-          <Text>{props.level}</Text>
+          <Text>{level}</Text>
         </Flex>
 
         <div className={styles.skillsBar}>

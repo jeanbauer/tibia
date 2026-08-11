@@ -3,35 +3,29 @@ import { useDisclosure, Text, Button, Flex } from '@chakra-ui/react'
 
 import { seller, chest, items, grass } from '../Images'
 import { ItemType } from '../../types'
+import { useGameStore } from '../../store/useGameStore'
 
 import Item from '../Item/item'
 import styles from './store.module.css'
 
-interface Props {
-  gold: number
-  onPurchaseItem: (item: ItemType) => void
-}
+const Store = () => {
+  const gold = useGameStore((s) => s.gold)
+  const purchaseItem = useGameStore((s) => s.purchaseItem)
+  const { open, onOpen, onClose } = useDisclosure()
+  const [storeItems, setStoreItems] = useState(items)
 
-const Store = (props: Props) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [equipments, setEquipments] = useState(items)
-
-  const purchaseItem = (item: ItemType) => {
-    if (props.gold - item.price < 0) {
+  const handleBuy = (item: ItemType) => {
+    if (gold - item.price < 0) {
       return alert('Not enough gold')
     }
 
-    const equipmentsWithoutThePurchased = equipments.filter(
-      (equip) => equip.name !== item.name
-    )
-    setEquipments(equipmentsWithoutThePurchased)
-
-    props.onPurchaseItem(item)
+    setStoreItems((prev) => prev.filter((i) => i.name !== item.name))
+    purchaseItem(item)
   }
 
   return (
     <>
-      {!isOpen && (
+      {!open && (
         <Flex bgImage={`url(${grass})`} className={styles.store}>
           <Flex
             direction='column'
@@ -51,11 +45,11 @@ const Store = (props: Props) => {
         </Flex>
       )}
 
-      {isOpen && (
+      {open && (
         <Item name='Store' icon={chest} onClose={() => onClose()}>
           <Flex justifyContent='flex-start' direction='column'>
             <div className={styles.storeItems}>
-              {equipments.map((item) => (
+              {storeItems.map((item) => (
                 <div key={item.name} className={styles.storeItem}>
                   <Flex align='center' justifyContent='space-between'>
                     <Flex direction='column'>
@@ -65,12 +59,7 @@ const Store = (props: Props) => {
                       </span>
                     </Flex>
                     <img src={item.img} alt={item.name} />
-                    <Button
-                      colorScheme='blue'
-                      size='xs'
-                      mr={3}
-                      onClick={() => purchaseItem(item)}
-                    >
+                    <Button colorPalette='blue' size='xs' mr={3} onClick={() => handleBuy(item)}>
                       Buy
                     </Button>
                   </Flex>

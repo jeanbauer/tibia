@@ -1,16 +1,12 @@
 import { Flex } from '@chakra-ui/react'
 
-import { backpack, defaultItems } from '../Images'
+import { backpack } from '../Images'
+import { useGameStore } from '../../store/useGameStore'
 
 import styles from '../Backpack/backpack.module.css'
 
-type EquipmentsType = typeof defaultItems
-
-interface Props {
-  equipments: EquipmentsType
-}
-
-function Equipment({ equipments }: Props) {
+function Equipment() {
+  const equipments = useGameStore((s) => s.equipments)
 
   return (
     <Flex

@@ -10,30 +10,39 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.10.10",
+    "@chakra-ui/react": "^3.36.1",
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "framer-motion": "^11.18.2",
     "next": "^16.3.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.3",
     "@types/node": "^26.2.0",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^8.67.0",
     "@typescript-eslint/parser": "^8.67.0",
+    "@vitejs/plugin-react": "^6.0.5",
     "eslint": "^10.8.1",
     "eslint-config-next": "^16.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^28.1.0",
     "prettier": "^3.9.6",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
   }
 }

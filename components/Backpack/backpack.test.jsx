@@ -1,8 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react'
+import { render } from '@testing-library/react';
+import { vi } from 'vitest';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 
 import Backpack from './backpack';
 import * as calculateCoins from './coins';
+
+const renderWithChakra = (ui) =>
+  render(<ChakraProvider value={defaultSystem}>{ui}</ChakraProvider>);
 
 describe('Backpack', () => {
   describe('calculateCoins', () => {
@@ -10,8 +15,8 @@ describe('Backpack', () => {
     let spy;
 
     beforeEach(() => {
-      mockedCalculateCoins = jest.fn().mockReturnValue([]);
-      spy = jest.spyOn(calculateCoins, 'default').mockImplementation(mockedCalculateCoins);
+      mockedCalculateCoins = vi.fn().mockReturnValue([]);
+      spy = vi.spyOn(calculateCoins, 'default').mockImplementation(mockedCalculateCoins);
     });
 
     afterAll(() => {

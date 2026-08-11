@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react'
 import { Box, Text, Flex } from '@chakra-ui/react'
 
 import getMonster from '../Images/Monsters'
-
+import { useGameStore } from '../../store/useGameStore'
+import { toaster } from '../ui/toaster'
 import skillsStyles from '../Skills/skills.module.css'
 import styles from './monster.module.css'
 
@@ -15,14 +17,23 @@ const hpStyle = (hp: number) => {
   }
 }
 
-interface Props {
-  attack: () => void
-  hp: number
-  level: number
-}
-
-const Monster = ({ attack, hp, level }: Props) => {
+const Monster = () => {
+  const hp = useGameStore((s) => s.monsterHp)
+  const level = useGameStore((s) => s.skills.level)
+  const attack = useGameStore((s) => s.attack)
   const { name, img } = getMonster(level)
+  const prevHpRef = useRef(hp)
+
+  useEffect(() => {
+    if (prevHpRef.current > 0 && hp > prevHpRef.current) {
+      toaster.create({
+        title: 'Monster killed.',
+        type: 'success',
+        duration: 3000,
+      })
+    }
+    prevHpRef.current = hp
+  }, [hp])
 
   return (
     <Flex align='center' justify='center' direction='column'>

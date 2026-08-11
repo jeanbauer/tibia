@@ -3,6 +3,7 @@ import { Flex } from '@chakra-ui/react'
 import Item from '../Item/item'
 import { battle } from '../Images'
 import getMonster from '../Images/Monsters'
+import { useGameStore } from '../../store/useGameStore'
 import styles from './monster.module.css'
 
 const hpStyle = (hp: number) => {
@@ -16,13 +17,10 @@ const hpStyle = (hp: number) => {
   }
 }
 
-interface Props {
-  attack: () => void
-  hp: number
-  level: number
-}
-
-function Battle({ attack, hp, level }: Props) {
+function Battle() {
+  const hp = useGameStore((s) => s.monsterHp)
+  const level = useGameStore((s) => s.skills.level)
+  const attack = useGameStore((s) => s.attack)
   const { name, img } = getMonster(level)
 
   return (

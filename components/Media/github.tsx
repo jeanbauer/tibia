@@ -1,21 +1,20 @@
-import { Button, Link, Text } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
 const Github = () => (
   <Button
+    asChild
     style={{
       position: 'absolute',
       left: '20px',
       bottom: '20px',
     }}
   >
-    <Link href='https://github.com/jeanbauer/tibia' isExternal>
-      <Text as='span' role='img' aria-label='star'>
+    <a href='https://github.com/jeanbauer/tibia' target='_blank' rel='noopener noreferrer'>
+      <span role='img' aria-label='star'>
         ⭐
-      </Text>
-      <Text as='span' ml={2}>
-        Star on Github
-      </Text>
-    </Link>
+      </span>
+      <span style={{ marginLeft: '8px' }}>Star on Github</span>
+    </a>
   </Button>
 )
 
