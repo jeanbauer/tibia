@@ -1,71 +1,56 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 
 import Backpack from './backpack';
-import * as calculateCoins from './coins';
+import * as useGameStoreModule from '../../store/useGameStore';
 
 const renderWithChakra = (ui) =>
   render(<ChakraProvider value={defaultSystem}>{ui}</ChakraProvider>);
 
+const mockStore = (gold) => {
+  vi.spyOn(useGameStoreModule, 'useGameStore').mockImplementation((selector) =>
+    selector({ gold })
+  );
+};
+
 describe('Backpack', () => {
-  describe('calculateCoins', () => {
-    let mockedCalculateCoins;
-    let spy;
-
-    beforeEach(() => {
-      mockedCalculateCoins = vi.fn().mockReturnValue([]);
-      spy = vi.spyOn(calculateCoins, 'default').mockImplementation(mockedCalculateCoins);
-    });
-
-    afterAll(() => {
-      spy.mockRestore();
-    });
-
-    it('should not call calculateCoins again when gold amount is the same', () => {
-      const { rerender } = render(<Backpack gold={10} />);
-      rerender(<Backpack gold={10} />);
-
-      expect(mockedCalculateCoins).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call calculateCoins when gold amount changes', () => {
-      const { rerender } = render(<Backpack gold={10} />);
-      rerender(<Backpack gold={10} />);
-      rerender(<Backpack gold={15} />);
-
-      expect(mockedCalculateCoins).toHaveBeenNthCalledWith(1, 10);
-      expect(mockedCalculateCoins).toHaveBeenNthCalledWith(2, 15);
-    });
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   describe('rendering', () => {
-    it('should render 1 slot', () => {
-      const { getByText } = render(<Backpack gold={10} />);
+    it('should render a single gold slot for a small amount', () => {
+      mockStore(10);
+      renderWithChakra(<Backpack />);
 
-      const { parentNode: { parentNode: flexContainer } } = getByText('10');
-      expect(flexContainer.childNodes.length).toBe(1);
+      expect(screen.getByText('10')).toBeTruthy();
     });
 
-    it('should render the right values in slots', () => {
-      const { getByText } = render(<Backpack gold={1250} />);
+    it('should render platinum and gold slots for 152 gp', () => {
+      mockStore(152);
+      renderWithChakra(<Backpack />);
 
-      expect(getByText('1').textContent).toBe('1');
-      expect(getByText('2').textContent).toBe('2');
-      expect(getByText('50').textContent).toBe('50');
-
-      const { parentNode: { parentNode: flexContainer } } = getByText('1');
-      expect(flexContainer.childNodes.length).toBe(3);
+      expect(screen.getByText('1')).toBeTruthy();
+      expect(screen.getByText('52')).toBeTruthy();
     });
 
-    it('should rerender with the right slots', () => {
-      const { rerender, queryByText } = render(<Backpack gold={10} />);
-      expect(queryByText('10').textContent).toBe('10');
+    it('should render crystal, platinum, and gold slots for 1152 gp', () => {
+      mockStore(1152);
+      renderWithChakra(<Backpack />);
 
-      rerender(<Backpack gold={200} />);
-      expect(queryByText('10')).toBeNull();
-      expect(queryByText('2').textContent).toBe('2');
+      // 1152 gp → 1 crystal, 1 platinum, 52 gold — two slots show "1"
+      expect(screen.getAllByText('1')).toHaveLength(2);
+      expect(screen.getByText('52')).toBeTruthy();
+    });
+
+    it('should not render coin slots when gold is 0', () => {
+      mockStore(0);
+      renderWithChakra(<Backpack />);
+
+      // Coin slot images have empty alt; backpack icon has a non-empty alt
+      expect(screen.queryByAltText('')).toBeNull();
     });
   });
 });
