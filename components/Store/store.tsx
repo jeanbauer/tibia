@@ -4,6 +4,7 @@ import { useDisclosure, Text, Button, Flex } from '@chakra-ui/react'
 import { seller, chest, items, grass } from '../Images'
 import { ItemType } from '../../types'
 import { useGameStore } from '../../store/useGameStore'
+import { toaster } from '../ui/toaster'
 
 import Item from '../Item/item'
 import styles from './store.module.css'
@@ -15,12 +16,17 @@ const Store = () => {
   const [storeItems, setStoreItems] = useState(items)
 
   const handleBuy = (item: ItemType) => {
-    if (gold - item.price < 0) {
-      return alert('Not enough gold')
+    const purchased = purchaseItem(item)
+    if (!purchased) {
+      toaster.create({
+        title: 'Not enough gold',
+        type: 'error',
+        duration: 3000,
+      })
+      return
     }
 
     setStoreItems((prev) => prev.filter((i) => i.name !== item.name))
-    purchaseItem(item)
   }
 
   return (
@@ -59,7 +65,13 @@ const Store = () => {
                       </span>
                     </Flex>
                     <img src={item.img} alt={item.name} />
-                    <Button colorPalette='blue' size='xs' mr={3} onClick={() => handleBuy(item)}>
+                    <Button
+                      colorPalette='blue'
+                      size='xs'
+                      mr={3}
+                      disabled={gold < item.price}
+                      onClick={() => handleBuy(item)}
+                    >
                       Buy
                     </Button>
                   </Flex>

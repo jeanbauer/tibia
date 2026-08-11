@@ -25,7 +25,7 @@ interface GameState {
   attack: () => void
   killMonster: () => void
   levelUp: () => void
-  purchaseItem: (item: ItemType) => void
+  purchaseItem: (item: ItemType) => boolean
 }
 
 export const useGameStore = create<GameState>((set, get) => ({
@@ -79,10 +79,17 @@ export const useGameStore = create<GameState>((set, get) => ({
       }
     }),
 
-  purchaseItem: (item: ItemType) =>
+  purchaseItem: (item: ItemType) => {
+    const { gold } = get()
+    if (gold < item.price) {
+      return false
+    }
+
     set((s) => ({
       gold: s.gold - item.price,
       characterDamage: s.characterDamage + item.attack,
       equipments: { ...s.equipments, [item.type]: item },
-    })),
+    }))
+    return true
+  },
 }))
