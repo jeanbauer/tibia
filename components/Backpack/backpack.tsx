@@ -5,7 +5,7 @@ import Item from '../Item/item'
 import { backpack } from '../Images/Images'
 import calculateCoins from './coins'
 import styles from './backpack.module.css'
-import { useGameStore } from '../../store/useGameStore'
+import { useGameStore } from '@/store/useGameStore'
 
 const Backpack = () => {
   const gold = useGameStore((s) => s.gold)

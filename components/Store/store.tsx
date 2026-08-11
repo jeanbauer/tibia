@@ -1,9 +1,9 @@
 import { useDisclosure, Text, Button, Flex } from '@chakra-ui/react'
 
 import { seller, chest, items, grass } from '../Images'
-import { ItemType } from '../../types'
-import { useGameStore } from '../../store/useGameStore'
-import { toaster } from '../ui/toaster'
+import { ItemType } from '@/types'
+import { useGameStore } from '@/store/useGameStore'
+import { toaster } from '@/components/ui/toaster'
 
 import Item from '../Item/item'
 import styles from './store.module.css'

@@ -1,4 +1,4 @@
-import type { Equipments, ItemType } from '../../types'
+import type { Equipments, ItemType } from '@/types'
 
 const path = '/images'
 

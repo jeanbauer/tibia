@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
-import { defaultItems } from '../components/Images/Images'
-import { Equipments, ItemType, Status } from '../types'
+import { defaultItems } from '@/components/Images/Images'
+import { Equipments, ItemType, Status } from '@/types'
 import {
   IDLE_GOLD_AMOUNT,
   XP_PER_KILL,
@@ -12,7 +12,7 @@ import {
   monsterHpForLevel,
   retaliationDamage,
   xpForLevel,
-} from '../lib/game'
+} from '@/lib/game'
 
 interface GameState {
   status: Status

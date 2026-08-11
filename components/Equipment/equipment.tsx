@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react'
 
 import { backpack } from '../Images'
-import { useGameStore } from '../../store/useGameStore'
+import { useGameStore } from '@/store/useGameStore'
 
 import styles from '../Backpack/backpack.module.css'
 

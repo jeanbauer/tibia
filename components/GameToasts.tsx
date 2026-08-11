@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
-import { useGameStore } from '../store/useGameStore'
-import { toaster } from './ui/toaster'
+import { useGameStore } from '@/store/useGameStore'
+import { toaster } from '@/components/ui/toaster'
 
 /** Listens to game state transitions and shows UI feedback. */
 const GameToasts = () => {

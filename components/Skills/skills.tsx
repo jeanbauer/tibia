@@ -3,8 +3,8 @@ import { Text, Flex } from '@chakra-ui/react'
 import Item from '../Item/item'
 import styles from './skills.module.css'
 import { skills } from '../Images'
-import { useGameStore } from '../../store/useGameStore'
-import { xpProgressPercent } from '../../lib/game'
+import { useGameStore } from '@/store/useGameStore'
+import { xpProgressPercent } from '@/lib/game'
 
 const Skills = () => {
   const { xp, level } = useGameStore((s) => s.skills)

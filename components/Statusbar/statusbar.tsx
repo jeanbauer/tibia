@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 
-import { useGameStore } from '../../store/useGameStore'
+import { useGameStore } from '@/store/useGameStore'
 import styles from './statusbar.module.css'
 
 const StatusBar = () => {
