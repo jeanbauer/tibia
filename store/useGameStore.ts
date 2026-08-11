@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { defaultItems } from '../components/Images/Images'
 import { ItemType, Status } from '../types'
 import { toaster } from '../components/ui/toaster'
+import { xpForLevel } from '../lib/game/xp'
 
 const IDLE_GOLD_INTERVAL = 10
 const XP_PER_KILL = 25
@@ -34,12 +35,13 @@ export const useGameStore = create<GameState>((set, get) => ({
   addIdleGold: () => set((s) => ({ gold: s.gold + IDLE_GOLD_INTERVAL })),
 
   attack: () => {
-    const { monsterHp, characterDamage, skills } = get()
+    const { monsterHp, characterDamage } = get()
     const newHp = monsterHp - characterDamage
 
     if (newHp <= 0) {
       get().killMonster()
-      set({ monsterHp: 100 + skills.level * 10 })
+      const level = get().skills.level
+      set({ monsterHp: 100 + level * 10 })
       return
     }
 
@@ -56,6 +58,11 @@ export const useGameStore = create<GameState>((set, get) => ({
       type: 'success',
       duration: 3000,
     })
+
+    // Apply all earned levels in domain logic (not in a UI effect)
+    while (get().skills.xp >= xpForLevel(get().skills.level + 1)) {
+      get().levelUp()
+    }
   },
 
   levelUp: () =>
