@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 import { defaultItems } from '../components/Images/Images'
-import { ItemType, Status } from '../types'
+import { Equipments, ItemType, Status } from '../types'
 import {
   IDLE_GOLD_AMOUNT,
   XP_PER_KILL,
@@ -18,7 +18,7 @@ interface GameState {
   skills: { xp: number; level: number }
   monsterHp: number
   characterDamage: number
-  equipments: typeof defaultItems
+  equipments: Equipments
   killCount: number
 
   addIdleGold: () => void

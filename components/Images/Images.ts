@@ -1,6 +1,8 @@
+import type { Equipments, ItemType } from '../../types'
+
 const path = '/images'
 
-const defaultItems = {
+const defaultItems: Equipments = {
   helmet: {
     img: `${path}/items/empty_helmet.gif`,
   },
@@ -30,7 +32,7 @@ const defaultItems = {
   },
 }
 
-const items = [
+const items: ItemType[] = [
   {
     name: 'Fire Sword',
     price: 10,
@@ -46,7 +48,7 @@ const items = [
     type: 'helmet',
   },
   {
-    name: 'crystal_ring',
+    name: 'Crystal Ring',
     price: 100,
     attack: 10,
     img: `${path}/items/crystal_ring.gif`,
