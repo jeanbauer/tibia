@@ -30,7 +30,7 @@ const dwarf_soldier = {
 const minotaur = { img: `${path}/minotaur.gif`, name: 'Minotaur' }
 const dragon = { img: `${path}/dragon.gif`, name: 'Dragon' }
 
-const monsterByLevel = {
+const monsterByLevel: Record<number, { img: string; name: string }> = {
   1: rat,
   2: snake,
   3: spider,
@@ -56,7 +56,7 @@ const getMonster = (level: number) => {
     return monster
   }
 
-  return { img: dragon, name: 'Dragon' }
+  return { img: dragon.img, name: 'Dragon' }
 }
 
 export default getMonster

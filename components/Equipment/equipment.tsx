@@ -1,11 +1,16 @@
 import { Flex } from '@chakra-ui/react'
 
-import { backpack } from '../Images'
+import { backpack, defaultItems } from '../Images'
 
 import styles from '../Backpack/backpack.module.css'
 
-function Equipment(props) {
-  const { equipments } = props
+type EquipmentsType = typeof defaultItems
+
+interface Props {
+  equipments: EquipmentsType
+}
+
+function Equipment({ equipments }: Props) {
 
   return (
     <Flex

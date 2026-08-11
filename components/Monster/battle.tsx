@@ -16,7 +16,13 @@ const hpStyle = (hp: number) => {
   }
 }
 
-function Battle({ attack, hp, level }) {
+interface Props {
+  attack: () => void
+  hp: number
+  level: number
+}
+
+function Battle({ attack, hp, level }: Props) {
   const { name, img } = getMonster(level)
 
   return (

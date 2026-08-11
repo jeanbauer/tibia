@@ -13,7 +13,7 @@ function Character() {
         You
       </Text>
       <Image
-        widht='50px'
+        width='50px'
         height='50px'
         transform='scale(2.5)'
         src={character}

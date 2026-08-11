@@ -1,8 +1,9 @@
-import { Flex, Box, useToast } from '@chakra-ui/react'
+import { Flex, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 
 import useInterval from '../hooks/setInterval'
 import { defaultItems } from '../components/Images/Images'
+import { ItemType } from '../types'
 import Character from '../components/Character/character'
 import Backpack from '../components/Backpack/backpack'
 import Monster from '../components/Monster/monster'
@@ -34,12 +35,11 @@ export default function Home() {
     setGold(gold + idleGold)
   }, 5000)
 
-  const onPurchaseItem = (item) => {
+  const onPurchaseItem = (item: ItemType) => {
     setCharacterDamage(characterDamage + item.attack)
     setGold(gold - item.price)
 
-    equipments[item.type] = item
-    setEquipments(equipments)
+    setEquipments({ ...equipments, [item.type]: item })
   }
 
   const onKillMonster = () => {

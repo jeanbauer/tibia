@@ -1,0 +1,50 @@
+---
+description: Git commit message conventions using gitmoji
+alwaysApply: true
+---
+
+# Git Commit Messages
+
+All commits must start with a [gitmoji](https://gitmoji.dev/) emoji followed by a short imperative description.
+
+## Format
+
+```
+<emoji> <short description>
+
+[optional body]
+```
+
+## Common Emojis
+
+| Emoji | Code | Use for |
+|---|---|---|
+| ✨ | `:sparkles:` | New features |
+| 🐛 | `:bug:` | Bug fixes |
+| ♻️ | `:recycle:` | Refactoring |
+| ⬆️ | `:arrow_up:` | Upgrade dependencies |
+| 🎨 | `:art:` | Code structure / formatting |
+| 📝 | `:memo:` | Documentation |
+| 🔧 | `:wrench:` | Config files |
+| 🏷️ | `:label:` | Types |
+| 🧑‍💻 | `:technologist:` | Developer experience |
+| 🩹 | `:adhesive_bandage:` | Simple non-critical fix |
+| 🔥 | `:fire:` | Remove code or files |
+| 💄 | `:lipstick:` | UI / styles |
+
+## Examples
+
+```bash
+# ✅ Good
+git commit -m "✨ add idle gold accumulation mechanic"
+git commit -m "⬆️ bump Next.js to v15 and React to v18"
+git commit -m "🐛 fix equipment slot overwriting on purchase"
+git commit -m "♻️ extract monster hp logic into helper"
+
+# ❌ Bad
+git commit -m "fix stuff"
+git commit -m "WIP"
+git commit -m "updates"
+```
+
+Full emoji reference: https://gitmoji.dev/
